@@ -1,7 +1,25 @@
 import React, { useState, useRef, useMemo } from 'react';
-import { DistrictData, CropCategory, DivisionId } from '../types';
+import { DistrictData, CropCategory, DivisionId, GlobalHub, GlobalHubId } from '../types';
 import { DIVISIONS } from '../data/divisions';
-import { ZoomIn, ZoomOut, RotateCcw, MapPin, Navigation, Layers, Sparkles, Touchpad } from 'lucide-react';
+import { GLOBAL_HUBS } from '../data/globalHubs';
+import {
+  ZoomIn,
+  ZoomOut,
+  RotateCcw,
+  MapPin,
+  Navigation,
+  Layers,
+  Sparkles,
+  Plane,
+  Anchor,
+  Ship,
+  X,
+  Globe,
+  ArrowRight,
+  CheckCircle2,
+  Building2,
+  Truck,
+} from 'lucide-react';
 
 interface MapBangladeshProps {
   districts: DistrictData[];
@@ -28,13 +46,19 @@ export const MapBangladesh: React.FC<MapBangladeshProps> = ({
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [touchDistance, setTouchDistance] = useState<number | null>(null);
+  const [activeGlobalHubFilter, setActiveGlobalHubFilter] = useState<'all' | GlobalHubId>('all');
+  const [inspectedGlobalHub, setInspectedGlobalHub] = useState<GlobalHub | null>(null);
 
   const svgRef = useRef<SVGSVGElement | null>(null);
 
-  // Central Hub: Dhaka
-  const dhakaDistrict = useMemo(
-    () => districts.find((d) => d.id === 'dhaka') || districts[0],
-    [districts]
+  // 2 Global Hubs: Dhaka HSIA Airport & Chattogram Seaport
+  const dhakaAirportHub = useMemo(
+    () => GLOBAL_HUBS.find((h) => h.id === 'dhaka_airport')!,
+    []
+  );
+  const ctgSeaportHub = useMemo(
+    () => GLOBAL_HUBS.find((h) => h.id === 'ctg_seaport')!,
+    []
   );
 
   // Filtered districts
@@ -116,10 +140,10 @@ export const MapBangladesh: React.FC<MapBangladeshProps> = ({
   // Spokes to render: either all if showHubAndSpoke is true, or just selected district
   const activeSpokes = useMemo(() => {
     if (!showHubAndSpoke && !selectedDistrict) return [];
-    if (!showHubAndSpoke && selectedDistrict && selectedDistrict.id !== 'dhaka') {
+    if (!showHubAndSpoke && selectedDistrict) {
       return [selectedDistrict];
     }
-    return districts.filter((d) => d.id !== 'dhaka' && isDistrictMatchingFilter(d));
+    return districts.filter((d) => isDistrictMatchingFilter(d));
   }, [showHubAndSpoke, selectedDistrict, districts, activeDivisionFilter, activeCropFilter]);
 
   return (
@@ -149,22 +173,46 @@ export const MapBangladesh: React.FC<MapBangladeshProps> = ({
         </button>
       </div>
 
-      {/* Floating Status / Legend Indicator */}
-      <div className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 z-20 flex items-center gap-1.5 sm:gap-2 bg-white/95 backdrop-blur-md px-2 py-1 sm:px-3 sm:py-2 rounded-xl border border-stone-200 shadow-sm text-[10px] sm:text-xs">
-        <span className="flex items-center gap-1.5 text-stone-800 font-bold">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span>{lang === 'bn' ? '৬৪ জেলা' : '64 Districts'}</span>
-        </span>
-        <span className="text-stone-300">|</span>
-        <span className="text-stone-600 hidden xs:inline">
-          {showHubAndSpoke
-            ? lang === 'bn'
-              ? 'হাব-অ্যান্ড-স্পোক চালু'
-              : 'Hub & Spoke Active'
-            : lang === 'bn'
-            ? 'ট্যাপ করে দেখুন'
-            : 'Tap to inspect'}
-        </span>
+      {/* Floating Status & 2 Global Hubs Switcher */}
+      <div className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 z-20 flex flex-wrap items-center gap-1 sm:gap-1.5 bg-white/95 backdrop-blur-md p-1 rounded-xl border border-stone-200 shadow-md text-[10px] sm:text-xs">
+        <button
+          onClick={() => setActiveGlobalHubFilter('all')}
+          className={`flex items-center gap-1 px-2 py-1 rounded-lg font-semibold transition-all cursor-pointer ${
+            activeGlobalHubFilter === 'all'
+              ? 'bg-stone-900 text-white shadow-xs'
+              : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100'
+          }`}
+        >
+          <Globe className="w-3 h-3 text-emerald-400" />
+          <span className="hidden xs:inline">{lang === 'bn' ? '২টি গ্লোবাল হাব' : '2 Global Hubs'}</span>
+          <span className="xs:hidden">{lang === 'bn' ? 'উভয় হাব' : 'Dual'}</span>
+        </button>
+
+        <button
+          onClick={() => setActiveGlobalHubFilter('dhaka_airport')}
+          className={`flex items-center gap-1 px-2 py-1 rounded-lg font-semibold transition-all cursor-pointer ${
+            activeGlobalHubFilter === 'dhaka_airport'
+              ? 'bg-emerald-800 text-white shadow-xs'
+              : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100'
+          }`}
+          title={lang === 'bn' ? 'ঢাকা হযরত শাহজালাল আন্তর্জাতিক বিমানবন্দর এয়ার কার্গো হাব' : 'Dhaka HSIA Air Cargo Hub'}
+        >
+          <Plane className="w-3 h-3 text-emerald-400" />
+          <span>{lang === 'bn' ? 'শাহজালাল বিমানবন্দর' : 'HSIA Airport'}</span>
+        </button>
+
+        <button
+          onClick={() => setActiveGlobalHubFilter('ctg_seaport')}
+          className={`flex items-center gap-1 px-2 py-1 rounded-lg font-semibold transition-all cursor-pointer ${
+            activeGlobalHubFilter === 'ctg_seaport'
+              ? 'bg-sky-700 text-white shadow-xs'
+              : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100'
+          }`}
+          title={lang === 'bn' ? 'চট্টগ্রাম সমুদ্র ও নৌবন্দর মেরিটাইম হাব' : 'Chattogram Seaport Maritime Hub'}
+        >
+          <Anchor className="w-3 h-3 text-sky-300" />
+          <span>{lang === 'bn' ? 'চট্টগ্রাম নৌবন্দর' : 'Ctg Seaport'}</span>
+        </button>
       </div>
 
       {/* Mobile Gesture Hint */}
@@ -231,13 +279,21 @@ export const MapBangladesh: React.FC<MapBangladeshProps> = ({
           <filter id="glow-selected" x="-20%" y="-20%" width="140%" height="140%">
             <feDropShadow dx="0" dy="4" stdDeviation="6" floodColor="#047857" floodOpacity="0.4" />
           </filter>
-          <filter id="dhaka-glow" x="-50%" y="-50%" width="200%" height="200%">
-            <feDropShadow dx="0" dy="0" stdDeviation="8" floodColor="#10b981" floodOpacity="0.8" />
+          <filter id="dhaka-airport-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="0" dy="0" stdDeviation="8" floodColor="#10b981" floodOpacity="0.9" />
+          </filter>
+          <filter id="ctg-seaport-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="0" dy="0" stdDeviation="8" floodColor="#0284c7" floodOpacity="0.9" />
           </filter>
 
-          <linearGradient id="spokeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id="spokeGradientAirport" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#10b981" stopOpacity="0.9" />
             <stop offset="100%" stopColor="#059669" stopOpacity="0.4" />
+          </linearGradient>
+
+          <linearGradient id="spokeGradientSeaport" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#0284c7" stopOpacity="0.4" />
           </linearGradient>
 
           <style>{`
@@ -253,6 +309,9 @@ export const MapBangladesh: React.FC<MapBangladeshProps> = ({
             }
             .animate-dash {
               animation: flowDash 1.8s linear infinite;
+            }
+            .animate-dash-seaport {
+              animation: flowDash 2.1s linear infinite;
             }
             .animate-pulse-ring {
               animation: pulse-ring 2.2s cubic-bezier(0.2, 0.8, 0.4, 1) infinite;
@@ -362,92 +421,380 @@ export const MapBangladesh: React.FC<MapBangladeshProps> = ({
           })}
         </g>
 
-        {/* Hub-and-Spoke Logistics Supply Vectors */}
+        {/* Dual Global Hubs Spokes (Airport & Seaport Supply Vectors) */}
         <g id="spokes-layer" pointerEvents="none">
           {activeSpokes.map((district) => {
             const isSelected = selectedDistrict?.id === district.id;
             const startX = district.center.x;
             const startY = district.center.y;
-            const endX = dhakaDistrict.center.x;
-            const endY = dhakaDistrict.center.y;
 
-            const midX = (startX + endX) / 2 + (startY - endY) * 0.15;
-            const midY = (startY + endY) / 2 + (endX - startX) * 0.15;
+            // Spoke to Dhaka Hazrat Shahjalal Airport
+            const showAirportSpoke =
+              activeGlobalHubFilter === 'all' || activeGlobalHubFilter === 'dhaka_airport';
+            const airportEndX = dhakaAirportHub.center.x;
+            const airportEndY = dhakaAirportHub.center.y;
+            const airportMidX = (startX + airportEndX) / 2 + (startY - airportEndY) * 0.12;
+            const airportMidY = (startY + airportEndY) / 2 + (airportEndX - startX) * 0.12;
+            const airportPathD = `M ${startX} ${startY} Q ${airportMidX} ${airportMidY} ${airportEndX} ${airportEndY}`;
 
-            const pathD = `M ${startX} ${startY} Q ${midX} ${midY} ${endX} ${endY}`;
+            // Spoke to Chattogram Seaport
+            const showSeaportSpoke =
+              activeGlobalHubFilter === 'all' || activeGlobalHubFilter === 'ctg_seaport';
+            const ctgEndX = ctgSeaportHub.center.x;
+            const ctgEndY = ctgSeaportHub.center.y;
+            const ctgMidX = (startX + ctgEndX) / 2 - (startY - ctgEndY) * 0.12;
+            const ctgMidY = (startY + ctgEndY) / 2 + (ctgEndX - startX) * 0.12;
+            const ctgPathD = `M ${startX} ${startY} Q ${ctgMidX} ${ctgMidY} ${ctgEndX} ${ctgEndY}`;
 
             return (
               <g key={`spoke-${district.id}`}>
-                <path
-                  d={pathD}
-                  fill="none"
-                  stroke={isSelected ? '#047857' : '#10b981'}
-                  strokeWidth={isSelected ? 3.5 : 2}
-                  strokeOpacity={isSelected ? 0.9 : 0.6}
-                  strokeDasharray={isSelected ? '6 4' : '4 6'}
-                  className="animate-dash"
-                />
+                {/* Spoke to Dhaka HSIA Airport (Air Cargo Express) */}
+                {showAirportSpoke && (
+                  <g>
+                    <path
+                      d={airportPathD}
+                      fill="none"
+                      stroke={isSelected ? '#047857' : '#10b981'}
+                      strokeWidth={isSelected ? 3 : 1.6}
+                      strokeOpacity={isSelected ? 0.95 : 0.55}
+                      strokeDasharray={isSelected ? '6 4' : '4 5'}
+                      className="animate-dash"
+                    />
+                    <circle r={isSelected ? 4 : 2.5} fill={isSelected ? '#047857' : '#059669'}>
+                      <animateMotion
+                        path={airportPathD}
+                        dur={`${Math.max(2, district.supplyChain.transitHours * 0.45)}s`}
+                        repeatCount="indefinite"
+                      />
+                    </circle>
+                  </g>
+                )}
 
-                <circle r={isSelected ? 4.5 : 3} fill={isSelected ? '#047857' : '#059669'}>
-                  <animateMotion
-                    path={pathD}
-                    dur={`${Math.max(2, district.supplyChain.transitHours * 0.5)}s`}
-                    repeatCount="indefinite"
-                  />
-                </circle>
+                {/* Spoke to Chattogram Seaport (Ocean Freight & Reefer) */}
+                {showSeaportSpoke && (
+                  <g>
+                    <path
+                      d={ctgPathD}
+                      fill="none"
+                      stroke={isSelected ? '#0284c7' : '#38bdf8'}
+                      strokeWidth={isSelected ? 3 : 1.6}
+                      strokeOpacity={isSelected ? 0.95 : 0.55}
+                      strokeDasharray={isSelected ? '6 4' : '4 5'}
+                      className="animate-dash-seaport"
+                    />
+                    <circle r={isSelected ? 4 : 2.5} fill={isSelected ? '#0369a1' : '#0284c7'}>
+                      <animateMotion
+                        path={ctgPathD}
+                        dur={`${Math.max(2.5, (district.supplyChain.transitHours * 1.35) * 0.45)}s`}
+                        repeatCount="indefinite"
+                      />
+                    </circle>
+                  </g>
+                )}
               </g>
             );
           })}
         </g>
 
-        {/* Central Hub Dhaka Beacon */}
-        <g id="central-hub-dhaka" pointerEvents="none">
-          <circle
-            cx={dhakaDistrict.center.x}
-            cy={dhakaDistrict.center.y}
-            r="12"
-            fill="none"
-            stroke="#10b981"
-            strokeWidth="2"
-            className="animate-pulse-ring"
-          />
-          <circle
-            cx={dhakaDistrict.center.x}
-            cy={dhakaDistrict.center.y}
-            r="8"
-            fill="#059669"
-            filter="url(#dhaka-glow)"
-          />
-          <circle
-            cx={dhakaDistrict.center.x}
-            cy={dhakaDistrict.center.y}
-            r="4"
-            fill="#ffffff"
-          />
-
-          <g transform={`translate(${dhakaDistrict.center.x + 14}, ${dhakaDistrict.center.y - 12})`}>
-            <rect
-              x="-4"
-              y="-12"
-              width="142"
-              height="24"
-              rx="6"
-              fill="#064e3b"
-              fillOpacity="0.9"
+        {/* ============================================================== */}
+        {/* GLOBAL HUB 1: DHAKA HAZRAT SHAHJALAL INTERNATIONAL AIRPORT      */}
+        {/* ============================================================== */}
+        {(activeGlobalHubFilter === 'all' || activeGlobalHubFilter === 'dhaka_airport') && (
+          <g
+            id="global-hub-dhaka-airport"
+            className="cursor-pointer group"
+            onClick={(e) => {
+              e.stopPropagation();
+              setInspectedGlobalHub(dhakaAirportHub);
+            }}
+          >
+            <circle
+              cx={dhakaAirportHub.center.x}
+              cy={dhakaAirportHub.center.y}
+              r="17"
+              fill="none"
+              stroke="#10b981"
+              strokeWidth="2.5"
+              className="animate-pulse-ring"
             />
-            <text
-              x="6"
-              y="4"
+            <circle
+              cx={dhakaAirportHub.center.x}
+              cy={dhakaAirportHub.center.y}
+              r="11"
+              fill="#047857"
+              filter="url(#dhaka-airport-glow)"
+              className="group-hover:scale-110 transition-transform origin-center"
+            />
+            <circle
+              cx={dhakaAirportHub.center.x}
+              cy={dhakaAirportHub.center.y}
+              r="4.5"
               fill="#ffffff"
-              fontSize="10px"
-              fontWeight="700"
-              className="font-sans"
-            >
-              {lang === 'bn' ? 'ঢাকা মেগা হাব (কেন্দ্রীয়)' : 'Dhaka Central Hub'}
-            </text>
+            />
+
+            {/* Plane Icon inside Hub Marker */}
+            <g transform={`translate(${dhakaAirportHub.center.x - 7}, ${dhakaAirportHub.center.y - 7})`}>
+              <path
+                d="M10 2L8 6v5l-4-2v2l4 1.5v3L6 17v1.5l3-.8 3 .8V17l-2-1.5v-3l4-1.5V9l-4 2V6z"
+                fill="#ffffff"
+                transform="scale(0.75)"
+              />
+            </g>
+
+            {/* Label Card */}
+            <g transform={`translate(${dhakaAirportHub.center.x + 15}, ${dhakaAirportHub.center.y - 20})`}>
+              <rect
+                x="-4"
+                y="-13"
+                width="176"
+                height="30"
+                rx="8"
+                fill="#064e3b"
+                fillOpacity="0.95"
+                stroke="#10b981"
+                strokeWidth="1.2"
+                className="drop-shadow-md"
+              />
+              <text
+                x="4"
+                y="0"
+                fill="#86efac"
+                fontSize="9px"
+                fontWeight="800"
+                className="font-sans uppercase tracking-wider"
+              >
+                {lang === 'bn' ? '🛫 গ্লোবাল এয়ার কার্গো হাব' : '🛫 Global Air Cargo Hub'}
+              </text>
+              <text
+                x="4"
+                y="12"
+                fill="#ffffff"
+                fontSize="10.5px"
+                fontWeight="700"
+                className="font-sans"
+              >
+                {lang === 'bn' ? 'শাহজালাল বিমানবন্দর' : 'HSIA Airport (Dhaka)'}
+              </text>
+            </g>
           </g>
-        </g>
+        )}
+
+        {/* ============================================================== */}
+        {/* GLOBAL HUB 2: CHATTOGRAM MARITIME SEAPORT                      */}
+        {/* ============================================================== */}
+        {(activeGlobalHubFilter === 'all' || activeGlobalHubFilter === 'ctg_seaport') && (
+          <g
+            id="global-hub-ctg-seaport"
+            className="cursor-pointer group"
+            onClick={(e) => {
+              e.stopPropagation();
+              setInspectedGlobalHub(ctgSeaportHub);
+            }}
+          >
+            <circle
+              cx={ctgSeaportHub.center.x}
+              cy={ctgSeaportHub.center.y}
+              r="17"
+              fill="none"
+              stroke="#0284c7"
+              strokeWidth="2.5"
+              className="animate-pulse-ring"
+            />
+            <circle
+              cx={ctgSeaportHub.center.x}
+              cy={ctgSeaportHub.center.y}
+              r="11"
+              fill="#0369a1"
+              filter="url(#ctg-seaport-glow)"
+              className="group-hover:scale-110 transition-transform origin-center"
+            />
+            <circle
+              cx={ctgSeaportHub.center.x}
+              cy={ctgSeaportHub.center.y}
+              r="4.5"
+              fill="#ffffff"
+            />
+
+            {/* Anchor / Ship Icon inside Hub Marker */}
+            <g transform={`translate(${ctgSeaportHub.center.x - 6}, ${ctgSeaportHub.center.y - 6})`}>
+              <path
+                d="M6 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm1 4V3.87A3 3 0 0 0 6 3a3 3 0 0 0-1 .87V5H3v1h2v3.17A5.002 5.002 0 0 0 1 14h2a3 3 0 0 1 6 0h2a5.002 5.002 0 0 0-4-4.83V6h2V5H7z"
+                fill="#ffffff"
+                transform="scale(0.85)"
+              />
+            </g>
+
+            {/* Label Card */}
+            <g transform={`translate(${ctgSeaportHub.center.x + 15}, ${ctgSeaportHub.center.y - 20})`}>
+              <rect
+                x="-4"
+                y="-13"
+                width="176"
+                height="30"
+                rx="8"
+                fill="#0c4a6e"
+                fillOpacity="0.95"
+                stroke="#38bdf8"
+                strokeWidth="1.2"
+                className="drop-shadow-md"
+              />
+              <text
+                x="4"
+                y="0"
+                fill="#7dd3fc"
+                fontSize="9px"
+                fontWeight="800"
+                className="font-sans uppercase tracking-wider"
+              >
+                {lang === 'bn' ? '⚓ গ্লোবাল মেরিটাইম হাব' : '⚓ Global Maritime Seaport'}
+              </text>
+              <text
+                x="4"
+                y="12"
+                fill="#ffffff"
+                fontSize="10.5px"
+                fontWeight="700"
+                className="font-sans"
+              >
+                {lang === 'bn' ? 'চট্টগ্রাম সমুদ্র ও নৌবন্দর' : 'Chattogram Seaport'}
+              </text>
+            </g>
+          </g>
+        )}
       </svg>
+
+      {/* Global Hub Detailed Modal (When User Taps on Dhaka Airport or Chattogram Seaport) */}
+      {inspectedGlobalHub && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-stone-900/60 backdrop-blur-xs animate-in fade-in"
+          onClick={() => setInspectedGlobalHub(null)}
+        >
+          <div
+            className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-stone-200 overflow-hidden flex flex-col max-h-[90vh]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div
+              className="p-4 sm:p-5 text-white flex items-start justify-between"
+              style={{
+                background: `linear-gradient(135deg, ${inspectedGlobalHub.accentColor} 0%, #1c1917 100%)`,
+              }}
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-xs flex items-center justify-center">
+                  {inspectedGlobalHub.id === 'dhaka_airport' ? (
+                    <Plane className="w-6 h-6 text-white" />
+                  ) : (
+                    <Anchor className="w-6 h-6 text-white" />
+                  )}
+                </div>
+                <div>
+                  <span className="text-[10px] sm:text-xs uppercase tracking-wider font-bold px-2 py-0.5 rounded bg-white/20 backdrop-blur-sm">
+                    {lang === 'bn' ? inspectedGlobalHub.typeBn : inspectedGlobalHub.subtitle}
+                  </span>
+                  <h3 className="text-lg sm:text-xl font-bold text-white mt-1">
+                    {lang === 'bn' ? inspectedGlobalHub.nameBn : inspectedGlobalHub.name}
+                  </h3>
+                  <p className="text-xs text-white/80">
+                    {lang === 'bn' ? inspectedGlobalHub.locationBn : inspectedGlobalHub.location}
+                  </p>
+                </div>
+              </div>
+
+              <button
+                onClick={() => setInspectedGlobalHub(null)}
+                className="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="p-4 sm:p-5 space-y-4 overflow-y-auto text-xs text-stone-700">
+              {/* Daily Capacity Banner */}
+              <div className="p-3 rounded-xl bg-stone-50 border border-stone-200 flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] text-stone-500 uppercase font-bold block">
+                    {lang === 'bn' ? 'দৈনিক হ্যান্ডলিং ও রফতানি ক্ষমতা' : 'Daily Export Capacity'}
+                  </span>
+                  <span className="text-sm sm:text-base font-bold text-stone-900 font-mono">
+                    {inspectedGlobalHub.dailyCapacity}
+                  </span>
+                </div>
+                <div
+                  className="px-2.5 py-1 rounded-lg text-white font-bold text-xs"
+                  style={{ backgroundColor: inspectedGlobalHub.accentColor }}
+                >
+                  {inspectedGlobalHub.id === 'dhaka_airport'
+                    ? lang === 'bn' ? 'আকাশপথ এক্সপ্রেস' : 'Air Cargo'
+                    : lang === 'bn' ? 'সমুদ্রপথ কনটেইনার' : 'Ocean Freight'}
+                </div>
+              </div>
+
+              {/* Primary Export Commodities */}
+              <div>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-900 mb-2 flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>
+                    {lang === 'bn' ? 'প্রধান কৃষিজ রফতানি পণ্যসমূহ' : 'Primary Export Commodities'}
+                  </span>
+                </h4>
+                <div className="space-y-1.5">
+                  {(lang === 'bn'
+                    ? inspectedGlobalHub.primaryExportCommoditiesBn
+                    : inspectedGlobalHub.primaryExportCommodities
+                  ).map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="p-2 rounded-lg bg-emerald-50/50 border border-emerald-200 flex items-center gap-2"
+                    >
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                      <span className="font-semibold text-stone-900">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Global Destinations */}
+              <div>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-900 mb-2 flex items-center gap-1.5">
+                  <Globe className="w-3.5 h-3.5 text-sky-600" />
+                  <span>
+                    {lang === 'bn' ? 'আন্তর্জাতিক সরাসরি গন্তব্য' : 'International Direct Corridors'}
+                  </span>
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                  {(lang === 'bn'
+                    ? inspectedGlobalHub.destinationsBn
+                    : inspectedGlobalHub.destinations
+                  ).map((dest, idx) => (
+                    <div
+                      key={idx}
+                      className="p-2 rounded-lg bg-stone-50 border border-stone-200 flex items-center gap-1.5"
+                    >
+                      <ArrowRight className="w-3 h-3 text-sky-600 shrink-0" />
+                      <span className="font-medium text-stone-800">{dest}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="p-3 bg-stone-50 border-t border-stone-200 flex items-center justify-between">
+              <span className="text-[11px] text-stone-500">
+                {lang === 'bn' ? 'গ্রিনশপ গ্লোবাল গেটওয়ে ২০২৯' : 'GreenShop Global Gateway 2029'}
+              </span>
+              <button
+                onClick={() => setInspectedGlobalHub(null)}
+                className="px-4 py-1.5 rounded-lg bg-stone-900 hover:bg-stone-800 text-white font-semibold text-xs transition-colors cursor-pointer"
+              >
+                {lang === 'bn' ? 'বন্ধ করুন' : 'Close'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Bottom Hint Banner */}
       <div className="absolute bottom-3 right-3 sm:right-4 z-20 flex items-center gap-2 sm:gap-4 text-[10px] sm:text-[11px] text-stone-600 bg-white/90 backdrop-blur-sm px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg border border-stone-200 shadow-xs">

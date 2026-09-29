@@ -158,7 +158,7 @@ export default function App() {
                   }`}
                 >
                   <Truck className="w-3.5 h-3.5" />
-                  <span>{lang === 'bn' ? 'সাপ্লাই চেইন স্পোকস' : 'Hub & Spoke Flow'}</span>
+                  <span>{lang === 'bn' ? '২টি গ্লোবাল হাব স্পোকস' : 'Dual Global Hubs'}</span>
                 </button>
               </div>
             </div>
@@ -306,16 +306,26 @@ export default function App() {
                         </p>
                       </div>
 
-                      <div className="text-right">
-                        <span className="text-[10px] text-stone-400 block uppercase font-mono">
-                          {lang === 'bn' ? 'ঢাকা মেগা হাব' : 'To Dhaka Hub'}
-                        </span>
-                        <span className="text-sm sm:text-base font-bold text-stone-900 font-mono">
-                          {selectedDistrict.supplyChain.transitHours} {lang === 'bn' ? 'ঘণ্টা' : 'h'}
-                        </span>
-                        <span className="text-[10px] text-stone-500 block">
-                          ({selectedDistrict.supplyChain.transitToDhakaKm} {lang === 'bn' ? 'কি.মি.' : 'km'})
-                        </span>
+                      <div className="text-right space-y-1">
+                        <div className="bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                          <span className="text-[9px] text-emerald-800 font-bold block uppercase font-mono">
+                            🛫 {lang === 'bn' ? 'শাহজালাল বিমানবন্দর' : 'HSIA Airport'}
+                          </span>
+                          <span className="text-xs font-bold text-stone-900 font-mono">
+                            {selectedDistrict.supplyChain.transitHours} {lang === 'bn' ? 'ঘণ্টা' : 'h'}
+                          </span>
+                        </div>
+                        <div className="bg-sky-50 px-2 py-0.5 rounded border border-sky-200">
+                          <span className="text-[9px] text-sky-800 font-bold block uppercase font-mono">
+                            ⚓ {lang === 'bn' ? 'চট্টগ্রাম নৌবন্দর' : 'Ctg Seaport'}
+                          </span>
+                          <span className="text-xs font-bold text-stone-900 font-mono">
+                            {selectedDistrict.division === 'Chattogram'
+                              ? Math.max(1.2, Math.round(selectedDistrict.supplyChain.transitHours * 0.4 * 10) / 10)
+                              : Math.round((selectedDistrict.supplyChain.transitHours + 4.5) * 10) / 10}{' '}
+                            {lang === 'bn' ? 'ঘণ্টা' : 'h'}
+                          </span>
+                        </div>
                       </div>
                     </div>
 

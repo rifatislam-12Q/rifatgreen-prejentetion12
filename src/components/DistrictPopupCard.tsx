@@ -20,6 +20,9 @@ import {
   ArrowRight,
   Calculator,
   Camera,
+  Plane,
+  Anchor,
+  Globe,
 } from 'lucide-react';
 
 interface DistrictPopupCardProps {
@@ -458,19 +461,65 @@ export const DistrictPopupCard: React.FC<DistrictPopupCardProps> = ({
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
-                <div className="p-3 rounded-xl border border-stone-200 bg-stone-50">
-                  <span className="text-[10px] sm:text-[11px] text-stone-500 font-semibold block">
-                    {lang === 'bn' ? 'ঢাকা মেগা হাবের দূরত্ব' : 'Transit Distance to Dhaka'}
-                  </span>
-                  <p className="text-lg sm:text-xl font-bold text-stone-900 mt-0.5 font-mono">
-                    {district.supplyChain.transitToDhakaKm} {lang === 'bn' ? 'কি.মি.' : 'km'}
-                  </p>
-                  <span className="text-xs text-stone-500 font-medium mt-0.5 block">
-                    ~{district.supplyChain.transitHours} {lang === 'bn' ? 'ঘণ্টা এক্সপ্রেস ট্রানজিট' : 'hrs via express corridor'}
-                  </span>
-                </div>
+              {/* 2 Global Export Gateways */}
+              <div className="space-y-1.5">
+                <span className="text-[11px] sm:text-xs uppercase font-bold text-stone-900 tracking-wider flex items-center gap-1.5">
+                  <Globe className="w-3.5 h-3.5 text-emerald-700" />
+                  <span>{lang === 'bn' ? '২টি গ্লোবাল গেটওয়ে হাব সংযোগ' : 'Dual Global Export Gateways'}</span>
+                </span>
 
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {/* Global Hub 1: Dhaka HSIA Airport */}
+                  <div className="p-3 rounded-xl border border-emerald-300 bg-emerald-50/50">
+                    <div className="flex items-center gap-1.5 text-emerald-900 font-bold mb-1">
+                      <Plane className="w-4 h-4 text-emerald-700 shrink-0" />
+                      <span className="text-xs">
+                        {lang === 'bn' ? 'ঢাকা শাহজালাল বিমানবন্দর' : 'HSIA Airport (Dhaka)'}
+                      </span>
+                    </div>
+                    <p className="text-[10px] text-emerald-800 font-medium">
+                      {lang === 'bn' ? 'গ্লোবাল এয়ার কার্গো হাব (আকাশপথ)' : 'Global Air Cargo Hub'}
+                    </p>
+                    <div className="flex items-baseline justify-between mt-2 pt-1.5 border-t border-emerald-200/80">
+                      <span className="text-base font-bold text-stone-900 font-mono">
+                        {district.supplyChain.transitHours} {lang === 'bn' ? 'ঘণ্টা' : 'hrs'}
+                      </span>
+                      <span className="text-xs text-stone-500 font-mono">
+                        {district.supplyChain.transitToDhakaKm} {lang === 'bn' ? 'কি.মি.' : 'km'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Global Hub 2: Chattogram Seaport */}
+                  <div className="p-3 rounded-xl border border-sky-300 bg-sky-50/50">
+                    <div className="flex items-center gap-1.5 text-sky-900 font-bold mb-1">
+                      <Anchor className="w-4 h-4 text-sky-700 shrink-0" />
+                      <span className="text-xs">
+                        {lang === 'bn' ? 'চট্টগ্রাম সমুদ্র ও নৌবন্দর' : 'Chattogram Seaport'}
+                      </span>
+                    </div>
+                    <p className="text-[10px] text-sky-800 font-medium">
+                      {lang === 'bn' ? 'গ্লোবাল মেরিটাইম হাব (সমুদ্রপথ)' : 'Global Maritime Reefer Port'}
+                    </p>
+                    <div className="flex items-baseline justify-between mt-2 pt-1.5 border-t border-sky-200/80">
+                      <span className="text-base font-bold text-stone-900 font-mono">
+                        {district.division === 'Chattogram'
+                          ? Math.max(1.2, Math.round(district.supplyChain.transitHours * 0.4 * 10) / 10)
+                          : Math.round((district.supplyChain.transitHours + 4.5) * 10) / 10}{' '}
+                        {lang === 'bn' ? 'ঘণ্টা' : 'hrs'}
+                      </span>
+                      <span className="text-xs text-stone-500 font-mono">
+                        {district.division === 'Chattogram'
+                          ? Math.max(30, Math.round(district.supplyChain.transitToDhakaKm * 0.45))
+                          : district.supplyChain.transitToDhakaKm + 245}{' '}
+                        {lang === 'bn' ? 'কি.মি.' : 'km'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
                 <div className="p-3 rounded-xl border border-stone-200 bg-stone-50">
                   <span className="text-[10px] sm:text-[11px] text-stone-500 font-semibold block">
                     {lang === 'bn' ? 'কোল্ড চেইন প্রয়োজনীয়তা' : 'Cold Chain Requirement'}
@@ -486,15 +535,15 @@ export const DistrictPopupCard: React.FC<DistrictPopupCardProps> = ({
                     {district.supplyChain.weeklyDispatches}
                   </span>
                 </div>
-              </div>
 
-              <div className="p-3 rounded-xl border border-stone-200 bg-stone-50">
-                <span className="text-[11px] sm:text-xs font-semibold text-stone-500 block mb-1">
-                  {lang === 'bn' ? 'প্রধান জাতীয় হাইওয়ে করিডোর' : 'Primary Logistics Arterial Corridor'}
-                </span>
-                <p className="text-xs sm:text-sm font-medium text-stone-800">
-                  {district.supplyChain.primaryCorridor}
-                </p>
+                <div className="p-3 rounded-xl border border-stone-200 bg-stone-50">
+                  <span className="text-[11px] sm:text-xs font-semibold text-stone-500 block mb-1">
+                    {lang === 'bn' ? 'প্রধান জাতীয় হাইওয়ে করিডোর' : 'Primary Logistics Arterial Corridor'}
+                  </span>
+                  <p className="text-xs sm:text-sm font-medium text-stone-800">
+                    {district.supplyChain.primaryCorridor}
+                  </p>
+                </div>
               </div>
             </div>
           )}

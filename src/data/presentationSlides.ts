@@ -45,12 +45,12 @@ export const PRESENTATION_SLIDES: PresentationSlide[] = [
   {
     id: 2,
     title: 'Anatomy of the Hub-and-Spoke Model',
-    titleBn: 'হাব-অ্যান্ড-স্পোক সরবরাহ শৃঙ্খল কাঠামো',
-    subtitle: 'Synchronizing 64 Decentralized District Mills to Dhaka Central Mega-Terminal',
-    subtitleBn: '৬৪টি প্রান্তিক জেলা প্রসেসিং স্পোক ও ঢাকার কেন্দ্রীয় মেগা-টার্মিনালের সমন্বয়',
+    titleBn: 'হাব-অ্যান্ড-স্পোক সরবরাহ শৃঙ্খল ও ২টি গ্লোবাল হাব',
+    subtitle: 'Synchronizing 64 District Mills to Dhaka HSIA Airport & Chattogram Seaport',
+    subtitleBn: '৬৪টি প্রান্তিক জেলা মিল, ঢাকা শাহজালাল বিমানবন্দর এবং চট্টগ্রাম নৌবন্দরের সমন্বয়',
     content: {
-      heading: 'Two-Tier Logistics Infrastructure',
-      headingBn: 'দ্বি-স্তরবিশিষ্ট লজিস্টিকস অবকাঠামো',
+      heading: 'Two-Tier Logistics Infrastructure & Dual Global Gateways',
+      headingBn: 'দ্বি-স্তর লজিস্টিকস ও ২টি গ্লোবাল এক্সপোর্ট গেটওয়ে হাব',
       points: [
         {
           label: 'Tier 1: Decentralized District Mills (Spokes)',
@@ -60,18 +60,18 @@ export const PRESENTATION_SLIDES: PresentationSlide[] = [
           stat: '<২৪ ঘণ্টা ফার্ম-টু-মিল'
         },
         {
-          label: 'Tier 2: National Arterial Corridors',
-          labelBn: 'স্তর ২: জাতীয় এক্সপ্রেস করিডোর',
-          text: 'GPS-tracked temperature-controlled electric freight corridors utilizing the Bangabandhu Jamuna Bridge, Padma Bridge Expressway, and N1/N2 corridors.',
-          textBn: 'জিপিএস ট্র্যাকিং ও তাপমাত্রা নিয়ন্ত্রিত আধুনিক রেফ্রিজারেটেড ফ্লিট যা যমুনা ও পদ্মা সেতু এক্সপ্রেসওয়ের মাধ্যমে সরাসরি ঢাকায় পৌঁছায়।',
-          stat: '৩.৫ - ৭.৫ ঘণ্টা ট্রানজিট'
+          label: 'Global Hub 1: Dhaka HSIA Airport',
+          labelBn: 'গ্লোবাল হাব ১: ঢাকা শাহজালাল বিমানবন্দর',
+          text: 'Dedicated Agro-Air Cargo Terminal. Dispatches high-value fresh litchis, mangoes, herbs, and Kataribhog aromatic rice to Middle East, UK, and EU within 6-12 hours.',
+          textBn: 'আন্তর্জাতিক আকাশপথ কার্গো টার্মিনাল। কাটারিভোগ চাল, তাজা লিচু, আম ও শাকসবজি মাত্র ৬-১২ ঘণ্টায় মধ্যপ্রাচ্য, যুক্তরাজ্য ও ইউরোপে রপ্তানি।',
+          stat: '২৫০+ টন দৈনিক কার্গো'
         },
         {
-          label: 'Tier 3: Dhaka Central Apex Hub',
-          labelBn: 'স্তর ৩: ঢাকা কেন্দ্রীয় অ্যাপেক্স মেগাহাব',
-          text: 'A 250,000 sq ft smart cross-docking terminal in Tejgaon/Keraniganj for retail distribution, B2B food service delivery, and air/sea export clearance.',
-          textBn: 'তেজগাঁও/কেরানীগঞ্জে ২,৫০,০০০ বর্গফুটের স্মার্ট অটোমেটেড ক্রস-ডকিং টার্মিনাল যেখান থেকে নগর বিপণন ও সরাসরি বৈশ্বিক রপ্তানি পরিচালিত হয়।',
-          stat: '৩৫০ মে.টন দৈনিক গ্রহণ'
+          label: 'Global Hub 2: Chattogram Seaport',
+          labelBn: 'গ্লোবাল হাব ২: চট্টগ্রাম সমুদ্র ও নৌবন্দর',
+          text: 'Maritime Ocean Freight & Reefer Terminal. Exports frozen black tiger shrimp, sea catch, bulk grains, and tea containers across global ocean routes.',
+          textBn: 'মেরিটাইম সমুদ্র ও নৌবন্দর টার্মিনাল। সাতক্ষীরা-খুলনার হিমায়িত চিংড়ি, সামুদ্রিক মৎস্য, বাল্ক খাদ্যশস্য ও চা রটারডাম, নিউ ইয়র্ক ও পূর্ব এশিয়ায় প্রেরণ।',
+          stat: '১২,০০০+ টিইইউ রিফার'
         }
       ],
       highlightBox: {

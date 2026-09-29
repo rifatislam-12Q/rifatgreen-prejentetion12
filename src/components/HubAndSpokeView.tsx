@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { DistrictData, DivisionId } from '../types';
 import { DIVISIONS } from '../data/divisions';
+import { GLOBAL_HUBS } from '../data/globalHubs';
 import {
   Truck,
   ArrowRight,
@@ -13,6 +14,10 @@ import {
   Clock,
   Navigation,
   Sparkles,
+  Plane,
+  Anchor,
+  Ship,
+  Globe,
 } from 'lucide-react';
 
 interface HubAndSpokeViewProps {
@@ -245,43 +250,57 @@ export const HubAndSpokeView: React.FC<HubAndSpokeViewProps> = ({
               </div>
             </div>
 
-            {/* Right: Central Apex Hub in Dhaka */}
-            <div className="lg:col-span-3">
-              <div className="p-4 rounded-xl border border-emerald-300 bg-gradient-to-b from-emerald-50 to-white shadow-sm">
-                <div className="flex items-center gap-2 mb-2">
-                  <Building2 className="w-5 h-5 text-emerald-700" />
-                  <span className="text-xs font-bold uppercase tracking-wider text-emerald-800">
-                    {lang === 'bn' ? 'কেন্দ্রীয় অ্যাপেক্স হাব' : 'Central Apex Hub'}
-                  </span>
+            {/* Right: 2 Global Gateway Hubs (Dhaka Airport & Chattogram Seaport) */}
+            <div className="lg:col-span-3 space-y-3">
+              {/* Global Hub 1: Dhaka HSIA Airport */}
+              <div className="p-3.5 rounded-xl border border-emerald-300 bg-gradient-to-b from-emerald-50 to-white shadow-xs">
+                <div className="flex items-center gap-1.5 mb-1.5">
+                  <div className="w-6 h-6 rounded-lg bg-emerald-800 text-white flex items-center justify-center shrink-0">
+                    <Plane className="w-3.5 h-3.5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800 block leading-tight">
+                      {lang === 'bn' ? 'গ্লোবাল এয়ার কার্গো হাব' : 'Global Air Cargo Hub'}
+                    </span>
+                    <h4 className="text-xs sm:text-sm font-bold text-stone-900 leading-tight">
+                      {lang === 'bn' ? 'শাহজালাল আন্তর্জাতিক বিমানবন্দর' : 'Dhaka HSIA Airport'}
+                    </h4>
+                  </div>
                 </div>
-                <h4 className="text-base font-bold text-stone-900">
-                  {lang === 'bn' ? 'ঢাকা মেগা লজিস্টিকস টার্মিনাল' : 'Dhaka Central Terminal'}
-                </h4>
-                <p className="text-xs text-stone-600 mt-1">
+                <p className="text-[11px] text-stone-600">
                   {lang === 'bn'
-                    ? 'তেজগাঁও ও কেরানীগঞ্জ অটোমেটেড কোল্ড ক্রস-ডকিং টার্মিনাল।'
-                    : 'Tejgaon / Keraniganj automated cold intake cross-dock.'}
+                    ? 'কাটারিভোগ চাল, তাজা লিচু, আম ও শাকসবজি ৬-১২ ঘণ্টায় মধ্যপ্রাচ্য, ইউরোপ ও সিঙ্গাপুরে প্রেরণ।'
+                    : 'Aromatic fine rice, fresh litchi, mangoes & herbs airfreighted worldwide in 6-12 hours.'}
                 </p>
+                <div className="flex items-center justify-between text-[10px] font-mono text-emerald-800 font-bold mt-2 pt-2 border-t border-emerald-100">
+                  <span>{lang === 'bn' ? '২৫০+ টন দৈনিক কার্গো' : '250+ MT Daily'}</span>
+                  <span>{lang === 'bn' ? 'দুবাই/হিথ্রো/ফ্রাঙ্কফুর্ট' : 'DXB / LHR / FRA'}</span>
+                </div>
+              </div>
 
-                <div className="space-y-1.5 mt-3 pt-3 border-t border-emerald-100 text-xs text-stone-700">
-                  <div className="flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                    <span>
-                      {lang === 'bn' ? 'দৈনিক ৩৫০ মেট্রিক টন ধারণক্ষমতা' : '350 MT Daily Intake Capacity'}
-                    </span>
+              {/* Global Hub 2: Chattogram Maritime Seaport */}
+              <div className="p-3.5 rounded-xl border border-sky-300 bg-gradient-to-b from-sky-50 to-white shadow-xs">
+                <div className="flex items-center gap-1.5 mb-1.5">
+                  <div className="w-6 h-6 rounded-lg bg-sky-800 text-white flex items-center justify-center shrink-0">
+                    <Anchor className="w-3.5 h-3.5" />
                   </div>
-                  <div className="flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                    <span>
-                      {lang === 'bn' ? 'অপটিক্যাল কিউসি ও আরএফআইডি ট্র্যাকিং' : 'Automated Optical QC & RFID Tagging'}
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-sky-800 block leading-tight">
+                      {lang === 'bn' ? 'গ্লোবাল মেরিটাইম সিপোর্ট ও নৌবন্দর' : 'Global Maritime Seaport'}
                     </span>
+                    <h4 className="text-xs sm:text-sm font-bold text-stone-900 leading-tight">
+                      {lang === 'bn' ? 'চট্টগ্রাম সমুদ্র ও নৌবন্দর' : 'Chattogram Seaport'}
+                    </h4>
                   </div>
-                  <div className="flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                    <span>
-                      {lang === 'bn' ? 'সরাসরি নগর বাজার ও বিমান/সমুদ্র রপ্তানি' : 'Direct Retail & Global Export Routing'}
-                    </span>
-                  </div>
+                </div>
+                <p className="text-[11px] text-stone-600">
+                  {lang === 'bn'
+                    ? 'হিমায়িত বাগদা/গলদা চিংড়ি, সামুদ্রিক মৎস্য, বাল্ক খাদ্যশস্য ও চা আন্তর্জাতিক রিফার কনটেইনারে রফতানি।'
+                    : 'Frozen shrimp, ocean catch, bulk grains & export tea shipped via ocean reefer containers.'}
+                </p>
+                <div className="flex items-center justify-between text-[10px] font-mono text-sky-800 font-bold mt-2 pt-2 border-t border-sky-100">
+                  <span>{lang === 'bn' ? '১২,০০০+ টিইইউ কনটেইনার' : '12k+ TEU Daily'}</span>
+                  <span>{lang === 'bn' ? 'রটারডাম/নিউইয়র্ক/জাপান' : 'RTM / NYC / JPN'}</span>
                 </div>
               </div>
             </div>

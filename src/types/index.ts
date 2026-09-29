@@ -55,10 +55,35 @@ export interface DistrictData {
     transitToDhakaKm: number;
     primaryCorridor: string;
     transitHours: number;
+    transitToCtgKm?: number;
+    transitToCtgHours?: number;
     coldChainRequired: boolean;
     spokeRole: string;
     weeklyDispatches: string;
+    primaryGlobalHub?: 'dhaka_airport' | 'ctg_seaport' | 'dual';
   };
+}
+
+export type GlobalHubId = 'dhaka_airport' | 'ctg_seaport';
+
+export interface GlobalHub {
+  id: GlobalHubId;
+  name: string;
+  nameBn: string;
+  type: 'air_cargo' | 'maritime_seaport';
+  typeBn: string;
+  subtitle: string;
+  subtitleBn: string;
+  location: string;
+  locationBn: string;
+  center: { x: number; y: number };
+  dailyCapacity: string;
+  primaryExportCommodities: string[];
+  primaryExportCommoditiesBn: string[];
+  destinations: string[];
+  destinationsBn: string[];
+  color: string;
+  accentColor: string;
 }
 
 export interface DivisionMeta {
