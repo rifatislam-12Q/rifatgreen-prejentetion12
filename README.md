@@ -30,7 +30,7 @@ git commit -m "First commit - GreenShop Bangladesh 2029"
 git branch -M main
 
 # ৫. আপনার গিটহাব রিপোজিটরি রিমোট যুক্ত করুন
-git remote add origin https://github.com/rifatislam-12Q/rifatgreenpr1.git
+git remote add origin https://github.com/rifatislam-12Q/rifatgreen-prejentetion12.git
 
 # ৬. গিটহাবে পুশ করুন
 git push -u origin main
@@ -51,21 +51,21 @@ git init
 git add .
 git commit -m "GreenShop full project with photo notes & scrollable UI"
 git branch -M main
-git remote add origin https://github.com/rifatislam-12Q/rifatgreenpr1.git
+git remote add origin https://github.com/rifatislam-12Q/rifatgreen-prejentetion12.git
 git push -u origin main
 ```
 
 ২. গিটহাবে আপনার রিপোজিটরি লিংকে যান:
-👉 **[github.com/rifatislam-12Q/rifatgreenpr1](https://github.com/rifatislam-12Q/rifatgreenpr1)**
+👉 **[github.com/rifatislam-12Q/rifatgreen-prejentetion12](https://github.com/rifatislam-12Q/rifatgreen-prejentetion12)**
 
 ৩. উপরে থাকা **Settings** ট্যাবে যান &rarr; বামের মেনু থেকে **Pages**-এ ক্লিক করুন।
 
 ৪. **Build and deployment** সেকশনের **Source** ড্রপডাউনে:
-   - **`Deploy from a branch`** এর পরিবর্তে **`GitHub Actions`** নির্বাচন করুন।
+   - **`GitHub Actions`** নির্বাচন করুন (যা আপনার স্ক্রিনশটে ইতিমধ্যেই সিলেক্ট করা আছে!)।
 
-৫. ব্যস, আর কিছু করা লাগবে না! রিপোজিটরিতে থাকা `.github/workflows/deploy.yml` স্বয়ংক্রিয়ভাবে প্রজেক্ট বিল্ড করবে এবং ১ মিনিটের মধ্যে লাইভ করে দেবে।
-আপনার লাইভ ওয়েবসাইট দেখতে পারবেন এই লিংকে:
-👉 **https://rifatislam-12Q.github.io/rifatgreenpr1/**
+৫. আপনি কোড পুশ করার সাথে সাথেই রিপোজিটরিতে থাকা `.github/workflows/deploy.yml` স্বয়ংক্রিয়ভাবে প্রজেক্ট বিল্ড করে ১ মিনিটের মধ্যে লাইভ করে দেবে!
+লাইভ প্রজেক্ট দেখার লিংক:
+👉 **https://rifatislam-12Q.github.io/rifatgreen-prejentetion12/**
 
 ---
 

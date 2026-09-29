@@ -15,7 +15,7 @@ export const ExportModal: React.FC<ExportModalProps> = ({ onClose, lang }) => {
 git add .
 git commit -m "First commit - GreenShop Bangladesh 2029"
 git branch -M main
-git remote add origin https://github.com/rifatislam-12Q/rifatgreenpr1.git
+git remote add origin https://github.com/rifatislam-12Q/rifatgreen-prejentetion12.git
 git push -u origin main`;
 
   // Generate self-contained standalone HTML bundle in Bengali with full mobile responsive touch support
@@ -355,8 +355,8 @@ git push -u origin main`;
               </h3>
               <p className="text-xs text-stone-500 line-clamp-1">
                 {lang === 'bn'
-                  ? 'আপনার রিপোজিটরি: rifatislam-12Q/rifatgreenpr1'
-                  : 'Repository: rifatislam-12Q/rifatgreenpr1'}
+                  ? 'আপনার রিপোজিটরি: rifatislam-12Q/rifatgreen-prejentetion12'
+                  : 'Repository: rifatislam-12Q/rifatgreen-prejentetion12'}
               </p>
             </div>
           </div>
@@ -497,12 +497,12 @@ git push -u origin main`;
                   ? 'আপনার ওয়েবসাইট কোনো ব্ল্যাঙ্ক পেজ বা লিংক সমস্যা ছাড়াই লাইভ হবে:'
                   : 'Your website will be live without errors at:'}{' '}
                 <a
-                  href="https://rifatislam-12Q.github.io/rifatgreenpr1/"
+                  href="https://rifatislam-12Q.github.io/rifatgreen-prejentetion12/"
                   target="_blank"
                   rel="noreferrer"
                   className="font-bold text-emerald-700 underline block mt-0.5"
                 >
-                  https://rifatislam-12Q.github.io/rifatgreenpr1/
+                  https://rifatislam-12Q.github.io/rifatgreen-prejentetion12/
                 </a>
               </li>
             </ol>
