@@ -123,9 +123,9 @@ export const MapBangladesh: React.FC<MapBangladeshProps> = ({
   }, [showHubAndSpoke, selectedDistrict, districts, activeDivisionFilter, activeCropFilter]);
 
   return (
-    <div className="relative w-full h-[480px] sm:h-[580px] md:h-[660px] lg:h-[740px] flex items-center justify-center bg-stone-100/70 rounded-2xl border border-stone-200 overflow-hidden select-none touch-none">
+    <div className="relative w-full h-[380px] xs:h-[440px] sm:h-[540px] md:h-[620px] lg:h-[720px] xl:h-[760px] flex items-center justify-center bg-stone-100/70 rounded-2xl border border-stone-200 overflow-hidden select-none touch-none">
       {/* Map Control Bar (Optimized for touch targets on phones & tablets) */}
-      <div className="absolute top-3 left-3 z-20 flex flex-col gap-1 bg-white/95 backdrop-blur-md p-1 rounded-xl border border-stone-200 shadow-md">
+      <div className="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 z-20 flex flex-col gap-1 bg-white/95 backdrop-blur-md p-1 rounded-xl border border-stone-200 shadow-md">
         <button
           onClick={handleZoomIn}
           title={lang === 'bn' ? 'জুম ইন (+)' : 'Zoom in (+)'}
@@ -150,7 +150,7 @@ export const MapBangladesh: React.FC<MapBangladeshProps> = ({
       </div>
 
       {/* Floating Status / Legend Indicator */}
-      <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 sm:gap-2 bg-white/95 backdrop-blur-md px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl border border-stone-200 shadow-sm text-[11px] sm:text-xs">
+      <div className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 z-20 flex items-center gap-1.5 sm:gap-2 bg-white/95 backdrop-blur-md px-2 py-1 sm:px-3 sm:py-2 rounded-xl border border-stone-200 shadow-sm text-[10px] sm:text-xs">
         <span className="flex items-center gap-1.5 text-stone-800 font-bold">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
           <span>{lang === 'bn' ? '৬৪ জেলা' : '64 Districts'}</span>
@@ -167,10 +167,16 @@ export const MapBangladesh: React.FC<MapBangladeshProps> = ({
         </span>
       </div>
 
+      {/* Mobile Gesture Hint */}
+      <div className="absolute bottom-2.5 right-2.5 z-20 pointer-events-none bg-stone-900/75 backdrop-blur-xs text-white px-2.5 py-1 rounded-full text-[10px] font-medium flex items-center gap-1 shadow-sm md:hidden">
+        <span>👆</span>
+        <span>{lang === 'bn' ? 'যেকোনো জেলায় ট্যাপ করুন' : 'Tap any district'}</span>
+      </div>
+
       {/* Interactive Tooltip Card on Hover / Tap */}
       {hoveredDistrict && (
         <div
-          className="absolute pointer-events-none z-30 transition-all duration-75 bg-stone-900/90 text-white backdrop-blur-md px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl shadow-xl border border-white/10 text-xs max-w-[280px] sm:max-w-xs bottom-3 left-3 sm:bottom-4 sm:left-4"
+          className="absolute pointer-events-none z-30 transition-all duration-75 bg-stone-900/90 text-white backdrop-blur-md px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl shadow-xl border border-white/10 text-xs max-w-[calc(100vw-3rem)] sm:max-w-xs bottom-3 left-3 sm:bottom-4 sm:left-4"
         >
           <div className="flex items-center justify-between gap-2 mb-1">
             <span className="font-bold text-sm text-white">

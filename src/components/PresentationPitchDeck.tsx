@@ -36,29 +36,29 @@ export const PresentationPitchDeck: React.FC<PresentationPitchDeckProps> = ({
   return (
     <div className="space-y-4">
       {/* Slide Presenter Stage */}
-      <div className="relative min-h-[500px] bg-white rounded-2xl border border-stone-200 shadow-md p-6 sm:p-10 flex flex-col justify-between overflow-hidden">
+      <div className="relative min-h-[460px] sm:min-h-[500px] bg-white rounded-2xl border border-stone-200 shadow-md p-4 sm:p-7 md:p-10 flex flex-col justify-between overflow-hidden">
         {/* Subtle Watermark/Pattern */}
         <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-50 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
 
         {/* Slide Header */}
         <div className="relative z-10">
-          <div className="flex items-center justify-between gap-4 mb-2">
-            <span className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
+          <div className="flex items-center justify-between gap-2 sm:gap-4 mb-2">
+            <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2 sm:px-2.5 py-1 rounded-md border border-emerald-200">
               {lang === 'bn'
                 ? `স্লাইড ${currentSlide.id} / ${PRESENTATION_SLIDES.length}`
                 : `Slide ${currentSlide.id} of ${PRESENTATION_SLIDES.length}`}
             </span>
-            <span className="text-xs text-stone-400">
+            <span className="text-[10px] sm:text-xs text-stone-400">
               {lang === 'bn'
-                ? 'গ্রিনশপ কৌশলগত রূপরেখা · বাংলাদেশ ২০২৯'
-                : 'GreenShop Strategic Deck · Bangladesh 2029'}
+                ? 'গ্রিনশপ কৌশলগত রূপরেখা ২০২৯'
+                : 'GreenShop Vision 2029'}
             </span>
           </div>
 
-          <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-stone-900 mt-2">
+          <h2 className="text-xl sm:text-3xl md:text-4xl font-black tracking-tight text-stone-900 mt-1 sm:mt-2">
             {lang === 'bn' ? currentSlide.titleBn : currentSlide.title}
           </h2>
-          <p className="text-sm sm:text-base text-stone-600 font-medium mt-1">
+          <p className="text-xs sm:text-sm md:text-base text-stone-600 font-medium mt-1">
             {lang === 'bn'
               ? currentSlide.subtitleBn || currentSlide.subtitle
               : currentSlide.subtitle}
@@ -66,12 +66,12 @@ export const PresentationPitchDeck: React.FC<PresentationPitchDeckProps> = ({
         </div>
 
         {/* Slide Main Content */}
-        <div className="relative z-10 my-8 space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="relative z-10 my-4 sm:my-8 space-y-4 sm:space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
             {currentSlide.content.points.map((pt, idx) => (
               <div
                 key={idx}
-                className="p-5 rounded-xl border border-stone-200 bg-stone-50/70 hover:bg-stone-50 transition-colors"
+                className="p-3.5 sm:p-5 rounded-xl border border-stone-200 bg-stone-50/70 hover:bg-stone-50 transition-colors"
               >
                 {pt.stat && (
                   <span className="text-lg font-bold text-emerald-700 font-mono block mb-1">

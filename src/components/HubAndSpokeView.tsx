@@ -37,7 +37,7 @@ export const HubAndSpokeView: React.FC<HubAndSpokeViewProps> = ({
   return (
     <div className="space-y-6">
       {/* Overview Hero Card */}
-      <div className="relative overflow-hidden rounded-2xl bg-stone-900 text-white p-6 sm:p-8 border border-stone-800 shadow-xl">
+      <div className="relative overflow-hidden rounded-2xl bg-stone-900 text-white p-4 sm:p-6 lg:p-8 border border-stone-800 shadow-xl">
         <div className="absolute -right-16 -top-16 w-64 h-64 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
         
         <div className="max-w-3xl">
@@ -47,12 +47,12 @@ export const HubAndSpokeView: React.FC<HubAndSpokeViewProps> = ({
               {lang === 'bn' ? 'জাতীয় কৃষি লজিস্টিকস গ্রিড' : 'National Agri-Logistics Grid'}
             </span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-2">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-white mb-2">
             {lang === 'bn'
               ? 'গ্রিনশপ হাব-অ্যান্ড-স্পোক সরবরাহ শৃঙ্খল (২০২৯ রূপকল্প)'
               : 'GreenShop Hub-and-Spoke Supply Chain Model (2029 Vision)'}
           </h2>
-          <p className="text-sm sm:text-base text-stone-300 leading-relaxed">
+          <p className="text-xs sm:text-sm md:text-base text-stone-300 leading-relaxed">
             {lang === 'bn'
               ? '৬৪টি জেলার স্থানীয় বিকেন্দ্রীকৃত প্রসেসিং মিলগুলোকে সরাসরি ঢাকার সেন্ট্রাল মেগা-টার্মিনালের সাথে যুক্ত করে মধ্যস্বত্বভোগীহীন দ্রুততম খাদ্য সরবরাহ শৃঙ্খল।'
               : 'Connecting 64 decentralized district micro-processing mills directly to Dhaka’s Central Mega-Hub via temperature-controlled express corridors, eliminating 5 to 7 traditional intermediary layers.'}
@@ -60,7 +60,7 @@ export const HubAndSpokeView: React.FC<HubAndSpokeViewProps> = ({
         </div>
 
         {/* Live Performance Comparison Ticker */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6 pt-6 border-t border-stone-800">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-stone-800">
           <div>
             <span className="text-[11px] text-stone-400 uppercase font-medium">
               {lang === 'bn' ? 'মধ্যস্বত্বভোগী ধাপ' : 'Intermediary Layers'}
@@ -150,7 +150,7 @@ export const HubAndSpokeView: React.FC<HubAndSpokeViewProps> = ({
       </div>
 
       {/* Selected Corridor Architecture Diagram */}
-      <div className="bg-white rounded-2xl border border-stone-200 p-6 shadow-sm">
+      <div className="bg-white rounded-2xl border border-stone-200 p-4 sm:p-6 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-stone-100">
           <div>
             <div className="flex items-center gap-2">

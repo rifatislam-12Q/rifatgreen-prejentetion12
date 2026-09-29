@@ -72,24 +72,24 @@ export const DistrictPopupCard: React.FC<DistrictPopupCardProps> = ({
           {/* Subtle background badge */}
           <div className="absolute -right-6 -bottom-6 w-32 h-32 rounded-full bg-white/5 pointer-events-none" />
 
-          <div className="pr-2">
-            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1">
-              <span className="text-[11px] sm:text-xs uppercase tracking-wider font-semibold px-2 py-0.5 rounded bg-white/20 backdrop-blur-sm">
+          <div className="flex-1 min-w-0 pr-2">
+            <div className="flex flex-wrap items-center gap-1 sm:gap-2 mb-1">
+              <span className="text-[10px] sm:text-xs uppercase tracking-wider font-semibold px-1.5 sm:px-2 py-0.5 rounded bg-white/20 backdrop-blur-sm whitespace-nowrap">
                 {lang === 'bn' ? district.divisionBn : district.division} {lang === 'bn' ? 'বিভাগ' : 'Division'}
               </span>
               <span className="text-xs text-white/70">·</span>
-              <span className="text-[11px] sm:text-xs text-emerald-200 flex items-center gap-1">
+              <span className="text-[10px] sm:text-xs text-emerald-200 flex items-center gap-1 whitespace-nowrap">
                 <Truck className="w-3 h-3 sm:w-3.5 sm:h-3.5 inline" />
                 {district.supplyChain.transitHours} {lang === 'bn' ? 'ঘণ্টা (ঢাকা হতে)' : 'h to Dhaka'}
               </span>
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight flex flex-wrap items-baseline gap-1.5 sm:gap-2.5">
+            <h2 className="text-lg sm:text-2xl md:text-3xl font-bold tracking-tight flex flex-wrap items-baseline gap-1 sm:gap-2">
               <span>{lang === 'bn' ? district.nameBn : district.name}</span>
-              <span className="text-sm sm:text-base md:text-lg font-normal text-white/80">
+              <span className="text-xs sm:text-base md:text-lg font-normal text-white/80">
                 {lang === 'bn' ? `(${district.name})` : district.nameBn}
               </span>
             </h2>
-            <p className="text-xs sm:text-sm text-emerald-100 font-medium mt-0.5 line-clamp-1">
+            <p className="text-[11px] sm:text-sm text-emerald-100 font-medium mt-0.5 line-clamp-1">
               {lang === 'bn'
                 ? district.agriculturalHighlights.signatureProduceBn
                 : district.agriculturalHighlights.signatureProduce}

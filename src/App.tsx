@@ -191,8 +191,8 @@ export default function App() {
 
             {/* Filter Bar with Mobile Search Box */}
             <div className="p-3 bg-white rounded-xl border border-stone-200 shadow-xs space-y-2.5">
-              {/* Mobile Search Input (Visible on phones & tablets) */}
-              <div className="relative xl:hidden">
+              {/* Mobile Search Input (Visible on phones < md) */}
+              <div className="relative md:hidden">
                 <Search className="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
@@ -499,13 +499,13 @@ export default function App() {
             </button>
             <span>·</span>
             <a
-              href="https://github.com/rifatislam-12Q/rifatgreenpr1"
+              href="https://github.com/rifatislam-12Q/rifatgreen-prejentetion12"
               target="_blank"
               rel="noreferrer"
               className="flex items-center gap-1 text-stone-700 hover:text-stone-900 font-mono"
             >
               <Github className="w-3.5 h-3.5" />
-              <span>rifatislam-12Q/rifatgreenpr1</span>
+              <span>rifatislam-12Q/rifatgreen-prejentetion12</span>
             </a>
           </div>
         </div>

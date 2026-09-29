@@ -25,7 +25,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-7xl mx-auto px-3 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-2 sm:gap-4">
         {/* Zone 1: Wordmark / Brand */}
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-emerald-800 text-white flex items-center justify-center font-bold text-lg sm:text-xl shadow-xs">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-emerald-800 text-white flex items-center justify-center font-bold text-base sm:text-xl shadow-xs shrink-0">
             <svg
               viewBox="0 0 24 24"
               fill="none"
@@ -41,13 +41,15 @@ export const Navbar: React.FC<NavbarProps> = ({
               <path d="M14 2c1.5 2 2 3.5 1 5s-3 1.5-3 1.5" />
             </svg>
           </div>
-          <div>
-            <span className="text-base sm:text-lg font-extrabold tracking-tight text-stone-900 leading-tight">
-              {lang === 'bn' ? 'গ্রিনশপ' : 'GreenShop'}
-            </span>
-            <span className="hidden sm:inline-block text-[11px] text-emerald-800 font-bold ml-2 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-              {lang === 'bn' ? 'বাংলাদেশ ২০২৯ রূপকল্প' : 'Bangladesh 2029'}
-            </span>
+          <div className="min-w-0">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <span className="text-sm sm:text-base md:text-lg font-extrabold tracking-tight text-stone-900 leading-tight truncate">
+                {lang === 'bn' ? 'গ্রিনশপ' : 'GreenShop'}
+              </span>
+              <span className="hidden sm:inline-block text-[10px] sm:text-[11px] text-emerald-800 font-bold bg-emerald-50 px-1.5 sm:px-2 py-0.5 rounded border border-emerald-200 whitespace-nowrap">
+                {lang === 'bn' ? 'বাংলাদেশ ২০২৯' : 'Vision 2029'}
+              </span>
+            </div>
           </div>
         </div>
 
@@ -92,8 +94,8 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Zone 3: Primary Actions */}
         <div className="flex items-center gap-1.5 sm:gap-2">
-          {/* Quick Search for Laptops / Desktops */}
-          <div className="relative hidden xl:block w-48 2xl:w-52">
+          {/* Quick Search for Tablets, Laptops & Desktops */}
+          <div className="relative hidden md:block w-40 lg:w-52">
             <Search className="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
