@@ -1,0 +1,7 @@
+{
+  "name": "GreenShop - Bangladesh Agricultural Districts & Supply Chain 2029",
+  "description": "Interactive presentation showcasing all 64 Bangladesh administrative districts, agricultural specializations, decentralized processing business cases, and the GreenShop hub-and-spoke supply chain model.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
