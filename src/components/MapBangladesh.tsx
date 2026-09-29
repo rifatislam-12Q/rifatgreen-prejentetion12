@@ -50,6 +50,7 @@ export const MapBangladesh: React.FC<MapBangladeshProps> = ({
   const [inspectedGlobalHub, setInspectedGlobalHub] = useState<GlobalHub | null>(null);
 
   const svgRef = useRef<SVGSVGElement | null>(null);
+  const animFrameRef = useRef<number | null>(null);
 
   // 2 Global Hubs: Dhaka HSIA Airport & Chattogram Seaport
   const dhakaAirportHub = useMemo(
@@ -72,7 +73,7 @@ export const MapBangladesh: React.FC<MapBangladeshProps> = ({
     return true;
   };
 
-  // Mouse drag handlers
+  // Mouse drag handlers (GPU smooth requestAnimationFrame throttling)
   const handleMouseDown = (e: React.MouseEvent) => {
     if (e.button !== 0) return;
     setIsDragging(true);
@@ -81,15 +82,18 @@ export const MapBangladesh: React.FC<MapBangladeshProps> = ({
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (isDragging) {
-      setPan({
-        x: e.clientX - dragStart.x,
-        y: e.clientY - dragStart.y,
+      const nextX = e.clientX - dragStart.x;
+      const nextY = e.clientY - dragStart.y;
+      if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+      animFrameRef.current = requestAnimationFrame(() => {
+        setPan({ x: nextX, y: nextY });
       });
     }
   };
 
   const handleMouseUp = () => {
     setIsDragging(false);
+    if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
   };
 
   // Touch handlers for mobile and tablet devices
@@ -110,9 +114,11 @@ export const MapBangladesh: React.FC<MapBangladeshProps> = ({
   const handleTouchMove = (e: React.TouchEvent) => {
     if (e.touches.length === 1 && isDragging) {
       const touch = e.touches[0];
-      setPan({
-        x: touch.clientX - dragStart.x,
-        y: touch.clientY - dragStart.y,
+      const nextX = touch.clientX - dragStart.x;
+      const nextY = touch.clientY - dragStart.y;
+      if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+      animFrameRef.current = requestAnimationFrame(() => {
+        setPan({ x: nextX, y: nextY });
       });
     } else if (e.touches.length === 2 && touchDistance !== null) {
       const dist = Math.hypot(
@@ -128,6 +134,7 @@ export const MapBangladesh: React.FC<MapBangladeshProps> = ({
   const handleTouchEnd = () => {
     setIsDragging(false);
     setTouchDistance(null);
+    if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
   };
 
   const handleZoomIn = () => setZoom((prev) => Math.min(prev + 0.3, 3));
@@ -460,13 +467,15 @@ export const MapBangladesh: React.FC<MapBangladeshProps> = ({
                       strokeDasharray={isSelected ? '6 4' : '4 5'}
                       className="animate-dash"
                     />
-                    <circle r={isSelected ? 4 : 2.5} fill={isSelected ? '#047857' : '#059669'}>
-                      <animateMotion
-                        path={airportPathD}
-                        dur={`${Math.max(2, district.supplyChain.transitHours * 0.45)}s`}
-                        repeatCount="indefinite"
-                      />
-                    </circle>
+                    {(isSelected || ['dinajpur', 'pabna', 'panchagarh', 'rajshahi', 'bogra', 'satkhira', 'barishal', 'sylhet'].includes(district.id)) && (
+                      <circle r={isSelected ? 4.5 : 3} fill={isSelected ? '#047857' : '#059669'}>
+                        <animateMotion
+                          path={airportPathD}
+                          dur={`${Math.max(2, district.supplyChain.transitHours * 0.45)}s`}
+                          repeatCount="indefinite"
+                        />
+                      </circle>
+                    )}
                   </g>
                 )}
 
@@ -482,13 +491,15 @@ export const MapBangladesh: React.FC<MapBangladeshProps> = ({
                       strokeDasharray={isSelected ? '6 4' : '4 5'}
                       className="animate-dash-seaport"
                     />
-                    <circle r={isSelected ? 4 : 2.5} fill={isSelected ? '#0369a1' : '#0284c7'}>
-                      <animateMotion
-                        path={ctgPathD}
-                        dur={`${Math.max(2.5, (district.supplyChain.transitHours * 1.35) * 0.45)}s`}
-                        repeatCount="indefinite"
-                      />
-                    </circle>
+                    {(isSelected || ['satkhira', 'khulna', 'barishal', 'chattogram', 'coxs_bazar', 'sylhet'].includes(district.id)) && (
+                      <circle r={isSelected ? 4.5 : 3} fill={isSelected ? '#0369a1' : '#0284c7'}>
+                        <animateMotion
+                          path={ctgPathD}
+                          dur={`${Math.max(2.5, (district.supplyChain.transitHours * 1.35) * 0.45)}s`}
+                          repeatCount="indefinite"
+                        />
+                      </circle>
+                    )}
                   </g>
                 )}
               </g>

@@ -47,6 +47,21 @@ export const DistrictPopupCard: React.FC<DistrictPopupCardProps> = ({
   useEffect(() => {
     setNotesCount(getDistrictNotesCount(district.id));
   }, [district.id, activeTab]);
+
+  // Keyboard navigation: Escape to close, Left/Right arrow to cycle districts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't trigger if user is typing in an input or textarea
+      if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement)?.tagName)) {
+        return;
+      }
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowRight') onNavigateNext();
+      if (e.key === 'ArrowLeft') onNavigatePrev();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose, onNavigateNext, onNavigatePrev]);
   
   // Interactive feasibility calculator state
   const [farmAcres, setFarmAcres] = useState<number>(3500);

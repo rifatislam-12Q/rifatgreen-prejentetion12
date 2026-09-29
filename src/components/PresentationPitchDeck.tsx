@@ -33,6 +33,18 @@ export const PresentationPitchDeck: React.FC<PresentationPitchDeckProps> = ({
     );
   };
 
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement)?.tagName)) {
+        return;
+      }
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') handleNext();
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') handlePrev();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   return (
     <div className="space-y-4">
       {/* Slide Presenter Stage */}
