@@ -3,10 +3,10 @@ import { PresentationSlide } from '../types';
 export const PRESENTATION_SLIDES: PresentationSlide[] = [
   {
     id: 1,
-    title: 'The 2029 Vision: Transforming Bangladesh Agriculture',
-    titleBn: '২০২৯ সালের বাংলাদেশ: কৃষির ঐতিহাসিক রূপকল্প',
-    subtitle: 'From Fragmented Intermediaries to Decentralized Farmgate Value-Addition',
-    subtitleBn: 'মধ্যস্বত্বভোগীদের সিন্ডিকেট ভেঙে সরাসরি কৃষক পর্যায়ে আধুনিক প্রক্রিয়াকরণ',
+    title: 'what is greenshop.com',
+    titleBn: 'গ্রিনশপ ডটকম কী? · রূপকল্প ২০২৯',
+    subtitle: 'Decentralized Agricultural Supply Chain & Direct Farm-to-Fork Platform',
+    subtitleBn: 'বাংলাদেশের প্রথম বিকেন্দ্রীকৃত ডিজিটাল খাদ্য সরবরাহ শৃঙ্খল ও সরাসরি কৃষিজ প্ল্যাটফর্ম',
     content: {
       heading: 'GreenShop Strategic Imperative',
       headingBn: 'গ্রিনশপ কৌশলগত লক্ষ্য',
@@ -44,10 +44,10 @@ export const PRESENTATION_SLIDES: PresentationSlide[] = [
   },
   {
     id: 2,
-    title: 'Anatomy of the Hub-and-Spoke Model',
-    titleBn: 'হাব-অ্যান্ড-স্পোক সরবরাহ শৃঙ্খল ও ২টি গ্লোবাল হাব',
-    subtitle: 'Synchronizing 64 District Mills to Dhaka HSIA Airport & Chattogram Seaport',
-    subtitleBn: '৬৪টি প্রান্তিক জেলা মিল, ঢাকা শাহজালাল বিমানবন্দর এবং চট্টগ্রাম নৌবন্দরের সমন্বয়',
+    title: 'Business Model',
+    titleBn: 'বিজনেস মডেল · Business Model',
+    subtitle: 'Decentralized Agri Value Chain & Hub-and-Spoke Monetization',
+    subtitleBn: 'গ্রিনশপ বিকেন্দ্রীকৃত বিজনেস মডেল ও সরবরাহ শৃঙ্খল',
     content: {
       heading: 'Two-Tier Logistics Infrastructure & Dual Global Gateways',
       headingBn: 'দ্বি-স্তর লজিস্টিকস ও ২টি গ্লোবাল এক্সপোর্ট গেটওয়ে হাব',
@@ -85,10 +85,10 @@ export const PRESENTATION_SLIDES: PresentationSlide[] = [
   },
   {
     id: 3,
-    title: 'Decentralized Processing: The Dinajpur Business Case',
-    titleBn: 'দিনাজপুরের সুগন্ধি চাল ও ফল প্রসেসিং কেস স্টাডি',
-    subtitle: 'Fine Aromatic Rice (Chinigura & Katarirogh) + Cryo Litchi Processing',
-    subtitleBn: 'জিআই সুগন্ধি চাল (কাটারিভোগ ও চিনিগুঁড়া) এবং বেদানা লিচু ভ্যালু অ্যাডিশন',
+    title: 'Platform Features',
+    titleBn: 'প্ল্যাটফর্ম সার্ভিসেস ও ফিচারস · Features',
+    subtitle: 'Decentralized Agro Ecosystem & All-in-One Services',
+    subtitleBn: 'গ্রিনশপ ডিজিটাল প্ল্যাটফর্মের সকল মূল সেবা ও সার্ভিসসমূহ',
     districtFeatured: 'dinajpur',
     content: {
       heading: 'High-Value Northern Granary Engine',
@@ -127,52 +127,52 @@ export const PRESENTATION_SLIDES: PresentationSlide[] = [
   },
   {
     id: 4,
-    title: 'The Perishable Fruit Crisis: Pabna Litchi & Dairy Solution',
-    titleBn: 'পাবনার লিচু ও বাথানের দুধ সংরক্ষণ মডেল',
-    subtitle: 'Hydro-Cooling & Cold Chain Integration Along the Western Agri Spine',
-    subtitleBn: 'পশ্চিমাঞ্চলীয় কৃষি স্পাইনে হাইড্রো-কুলিং ও কোল্ড চেইনের সমন্বয়',
+    title: 'National 64 Districts Agro & Logistics Grid',
+    titleBn: 'জাতীয় ৬৪ জেলা এগ্রিকালচার ম্যাপ ও সরবরাহ শৃঙ্খল গ্রিড',
+    subtitle: 'Interactive 64-District GIS Network with Dual Global Export Gateways (HSIA Airport & Chattogram Seaport)',
+    subtitleBn: 'ইন্টারেক্টিভ ৬৪ জেলা ভেক্টর ম্যাপ, ফসলের তথ্য ও ২টি গ্লোবাল এক্সপোর্ট হাব',
     districtFeatured: 'pabna',
     content: {
-      heading: 'Beating the 72-Hour Perishability Cliff',
-      headingBn: '৭২ ঘণ্টার মধ্যে লিচু পচন রোধের উপায়',
+      heading: 'Decentralized 64-District Agro Grid',
+      headingBn: '৬৪ জেলার সমন্বিত কৃষি ও লজিস্টিকস গ্রিড',
       points: [
         {
-          label: 'The 20-Day Glut Shock',
-          labelBn: '২০ দিনের অতিরিক্ত ফলনের চাপ',
-          text: 'Ishwardi produces 38,500 MT of bombai litchi in 3 weeks. Distressed farmers dump crates at ৳1.20 per litchi when trucks back up.',
-          textBn: 'ঈশ্বরদীতে মাত্র ৩ সপ্তাহে ৩৮,৫০০ মেট্রিক টন বোম্বাই লিচু পাকে। পরিবহন সংকটে বাধ্য হয়ে কৃষকরা পানির দরে বিক্রি করে।',
-          stat: '২৮.৫% পচন অপচয়'
+          label: '64 Administrative Spokes',
+          labelBn: '৬৪টি প্রশাসনিক স্পোক',
+          text: 'Every district features a dedicated decentralized micro-mill situated within 15 km of harvest clusters, guaranteeing instant sorting and chilling.',
+          textBn: 'প্রতিটি জেলায় ফসল কাটার ১৫ কিলোমিটারের মধ্যে বিকেন্দ্রীকৃত আধুনিক মাইক্রো-মিল, যা তাৎক্ষণিক সর্টিং ও প্রসেসিং নিশ্চিত করে।',
+          stat: '৬৪ জেলা সংযুক্ত'
         },
         {
-          label: 'GreenShop Rapid Hydro-Cooling',
-          labelBn: 'গ্রিনশপ দ্রুত হাইড্রো-কুলিং',
-          text: 'Water-flume heat extraction dips fruit core temperature to 4°C within 45 minutes, extending fresh shelf life from 3 days to 21 days.',
-          textBn: 'ঠান্ডা পানির প্রবাহ দিয়ে ৪৫ মিনিটে ফলের তাপমাত্রা ৪ ডিগ্রি সেলসিয়াসে নামানো হয়, যার ফলে লিচুর সতেজতা ৩ দিন থেকে বেড়ে ২১ দিন হয়।',
-          stat: '২১ দিন সতেজতার মেয়াদ'
+          label: 'Dual Global Gateways',
+          labelBn: '২টি গ্লোবাল এক্সপোর্ট হাব',
+          text: 'Connected via GPS-tracked cold corridors to Dhaka HSIA Airport (express air cargo) and Chattogram Maritime Port (deep-sea reefer containers).',
+          textBn: 'জিপিএস ট্র্যাকিংযুক্ত কোল্ড করিডোরের মাধ্যমে ঢাকা শাহজালাল বিমানবন্দর এবং চট্টগ্রাম সমুদ্রবন্দরের সাথে সরাসরি রপ্তানি সংযোগ।',
+          stat: '২টি আন্তর্জাতিক হাব'
         },
         {
-          label: 'Integrated Cow Dairy Chilling',
-          labelBn: 'সমন্বিত দুগ্ধ চিলিং ব্যবস্থা',
-          text: 'Off-season utilization of the chilling compressors keeps local bathan dairy milk chilled for morning dispatched express reefers to Dhaka.',
-          textBn: 'লিচুর মৌসুম ছাড়াও সারা বছর স্থানীয় বাথানের গাভীর দুধ চিলিং করে ভোরবেলা এক্সপ্রেস রেফ্রিজারেটেড ভ্যানে ঢাকায় পাঠানো হয়।',
-          stat: '১৫,০০০ লিটার দৈনিক দুধ'
+          label: 'Farmgate Value Capture',
+          labelBn: 'কৃষক পর্যায়ে মূল্য সংযোজন',
+          text: 'Local blast chillers and optical graders preserve perishable fruits (Pabna/Dinajpur litchi, mango) and fine aromatic rice at peak freshness.',
+          textBn: 'হাইড্রো-কুলিং ও ব্লাস্ট চিলারের মাধ্যমে লিচু, আম ও সুগন্ধি চালের সতেজতা বজায় রেখে কৃষকের মুনাফা ৩২-৩৬% বৃদ্ধি।',
+          stat: '<৩.৫% অপচয় হার'
         }
       ],
       highlightBox: {
-        title: 'Waste to Wealth',
-        titleBn: 'অপচয় রোধ করে সম্পদে রূপান্তর',
-        desc: 'Hydro-cooled and wax-dipped Pabna litchis reach premium Dhaka retail and export air-freight to London and Dubai without browning.',
-        descBn: 'হাইড্রো-কুল করা লিচু ঢাকায় এবং দুবাই ও লন্ডনে বিমানে রপ্তানি হয় বিন্দুমাত্র কালচে দাগ ছাড়াই।',
-        metric: '+৩৬% কৃষকের দাম বৃদ্ধি'
+        title: 'Interactive 64-District GIS Control',
+        titleBn: 'ইন্টারেক্টিভ ৬৪ জেলা জিআইএস কন্ট্রোল',
+        desc: 'Explore any of Bangladesh’s 64 districts below to inspect signature produce, transit times to dual export hubs, and tailored mill business cases.',
+        descBn: 'নিচের ইন্টারেক্টিভ ম্যাপে বাংলাদেশের যেকোনো জেলায় ক্লিক করে বিশেষ ফসল, ২টি গ্লোবাল হাবের দূরত্ব ও মিলের বিস্তারিত হিসাব দেখুন।',
+        metric: '৬৪ জেলা স্পোক'
       }
     }
   },
   {
     id: 5,
-    title: 'Panchagarh: Grain Drying, Seed Security & Organic Tea',
-    titleBn: 'পঞ্চগড়: শস্য সংরক্ষণ, বীজ নিরাপত্তা ও অর্গানিক চা বিপ্লব',
-    subtitle: 'Himalayan Foothill Climate-Smart Post-Harvest Hub',
-    subtitleBn: 'হিমালয়ের পাদদেশে জলবায়ু-সহনশীল ফসল প্রক্রিয়াকরণ হাব',
+    title: 'National Economic Impact: Jobs, Output & GDP',
+    titleBn: 'কর্মসংস্থান, উৎপাদন ও GDP · National Impact',
+    subtitle: 'Employment Generation, Agro-Industrial Output & GDP Contribution',
+    subtitleBn: 'জাতীয় অর্থনীতিতে কর্মসংস্থান সৃষ্টি, শিল্প উৎপাদন ও জিডিপি প্রবৃদ্ধি',
     districtFeatured: 'panchagarh',
     content: {
       heading: 'Northern Frontier Processing Engine',
